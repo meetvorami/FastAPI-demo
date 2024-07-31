@@ -24,4 +24,4 @@ class Users(Base):
         db_session.add(user)
         db_session.commit()
         db_session.refresh(user)
-        return True,user
+        return user

@@ -7,7 +7,6 @@ from src.api.v1.productManagement.models.product_model import Products
 class ProductService:
     def __init__(self, user_id) -> None:
         self.db = next(get_db())
-
         self.user_id = user_id
 
     def create_product(self, product):
@@ -21,8 +20,7 @@ class ProductService:
 
         data = product.dict()
         data["user_id"] = self.user_id
-        product = Products.create_product(self.db, data)
-        return product
-
+        return Products.create_product(self.db, data)
+        
     def get_all_products(self):
         return Products.get_all_product_from_user_id(self.db, self.user_id)

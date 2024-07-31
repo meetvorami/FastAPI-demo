@@ -28,16 +28,14 @@ class UserController:
         if check_user:
             return HTTPException(status_code=400, detail="Username already exist")
         hashed_password = get_password_hash(user_object.password)
-        _, db_user= Users.create_user(self.db,{"username":user_object.username,"password":hashed_password})
-        return db_user
-
+        return Users.create_user(self.db,{"username":user_object.username,"password":hashed_password})
+         
     def login_user(self, user_object: LoginUser):
         user = Users.get_user_by_username(self.db,user_object.username)
         if not user:
-            return False
+            raise HTTPException(status_code=400,detail="Invalid Username or password")
         if not pwd_context.verify(user_object.password, user.password):
-            return False
-
+            raise HTTPException(status_code=400,detail="Invalid Username or password")
         
         access_token = self.tokens.create_access_token(
             data={"sub": user.username, "is_active": user.isactive}
@@ -60,7 +58,6 @@ class UserController:
     
     def list_user(self):
         return Users.get_all_user(self.db)
-    
     
     def generate_access_token(self,refresh_token):
         payload = self.tokens.decode_jwt(refresh_token)
@@ -100,7 +97,6 @@ class UserController:
         self.redis_client.set(username,json.dumps({"access": access_token, "refresh": refresh_token}),self.tokens.REFRESH_TOKEN_EXPIRE_MINUTES * 60)
         return {"access": access_token}
 
-    
     def logout(self,user):
         self.redis_client.delete(user.username)
         return {"message": "user logout successfully"}
