@@ -12,5 +12,5 @@ def create_product(product:ProductSchema,user=Depends(get_current_user)):
      
 
 @product_router.post("/list_all_products")
-def list_all_products(user=Depends(get_current_user)):
-    return ProductService(user.id).get_all_products()
+def list_all_products(limit:int=10,skip:int=0,user=Depends(get_current_user)):
+    return ProductService(user.id).get_all_products(skip,limit)

@@ -22,5 +22,5 @@ class ProductService:
         data["user_id"] = self.user_id
         return Products.create_product(self.db, data)
         
-    def get_all_products(self):
-        return Products.get_all_product_from_user_id(self.db, self.user_id)
+    def get_all_products(self,skip,limit):
+        return Products.get_all_product_from_user_id(self.db, self.user_id,skip,limit)
