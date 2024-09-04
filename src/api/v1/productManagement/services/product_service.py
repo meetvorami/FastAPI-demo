@@ -13,6 +13,7 @@ class ProductService:
         check_product = Products.check_product_if_already_exist(
             self.db, product.name, self.user_id
         )
+
         if check_product:
             raise HTTPException(
                 status_code=400, detail="product with that name already exist"
@@ -21,6 +22,6 @@ class ProductService:
         data = product.dict()
         data["user_id"] = self.user_id
         return Products.create_product(self.db, data)
-        
-    def get_all_products(self,skip,limit):
-        return Products.get_all_product_from_user_id(self.db, self.user_id,skip,limit)
+
+    def get_all_products(self, skip, limit):
+        return Products.get_all_product_from_user_id(self.db, self.user_id, skip, limit)

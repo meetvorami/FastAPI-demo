@@ -30,7 +30,7 @@ class DatabaseSettings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", extra="allow")
 
 
-class Settings(JWTSetting,RedisSetting,DatabaseSettings):
+class Settings(JWTSetting, RedisSetting, DatabaseSettings):
     pass
 
 

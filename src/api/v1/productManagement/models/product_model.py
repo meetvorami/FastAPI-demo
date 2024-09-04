@@ -27,5 +27,11 @@ class Products(Base):
         return product
 
     @classmethod
-    def get_all_product_from_user_id(cls, db_session, user_id,skip,limit):
-        return db_session.query(cls).filter(cls.user_id == user_id).limit(limit).offset(skip).all()
+    def get_all_product_from_user_id(cls, db_session, user_id, skip, limit):
+        return (
+            db_session.query(cls)
+            .filter(cls.user_id == user_id)
+            .limit(limit)
+            .offset(skip)
+            .all()
+        )

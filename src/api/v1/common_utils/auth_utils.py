@@ -8,9 +8,8 @@ from sqlalchemy.orm import Session
 
 from database.database import get_db
 from src.api.v1.UserManagement.models.models import Users
-
-from ..UserManagement.utils.jwt_utils import Token
-from ..UserManagement.utils.redis_utils import RedisClient
+from src.api.v1.UserManagement.utils.jwt_utils import Token
+from src.api.v1.UserManagement.utils.redis_utils import RedisClient
 
 
 def get_current_user(token: str = Depends(HTTPBearer()), db: Session = Depends(get_db)):
