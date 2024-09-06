@@ -25,6 +25,7 @@ if config.config_file_name is not None:
 
 from src.api.v1.UserManagement.models.models import *
 from src.api.v1.productManagement.models.product_model import *
+from chat_service.models import *
 
 target_metadata = Base.metadata
 # target_metadata = None

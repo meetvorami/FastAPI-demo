@@ -1,6 +1,7 @@
 from typing import Any
 
 from sqlalchemy import Boolean, Column, Integer, String
+from sqlalchemy.orm import relationship
 
 from database.database import Base
 
@@ -12,6 +13,9 @@ class Users(Base):
     password = Column(String)
     isactive = Column(Boolean, default=True)
 
+    rooms = relationship("RoomUser", back_populates="user")
+    messages = relationship("Message", back_populates="created_by_user") 
+    
     @classmethod
     def get_user_by_username(cls, db_session: Any, username: str):
         return db_session.query(cls).filter(cls.username == username).first()
